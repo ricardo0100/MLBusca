@@ -9,10 +9,30 @@ import Foundation
 import Combine
 
 final class SearchViewModel: SearchViewModelProtocol {
+    var searchText: CurrentValueSubject<String, Never> = .init("")
+    var isEnabled: CurrentValueSubject<Bool, Never> = .init(false)
+    
     var coordinator: SearchCoordinatorProtocol?
     weak var view: SearchViewProtocol?
     
-    func didChangeSearchText(query: String) {
-        coordinator?.showSearchDetails(for: query)
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    init() {
+        bind()
+    }
+    
+    private func bind() {
+        searchText
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+            .sink { [weak self] isEmpty in
+                self?.isEnabled.value = !isEmpty
+            }
+            .store(in: &cancellables)
+    }
+    
+    func didTapSearch() {
+        coordinator?.showSearchDetails(for: searchText.value)
     }
 }
+

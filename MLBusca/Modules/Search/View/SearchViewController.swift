@@ -26,6 +26,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
         button.setTitle("Buscar", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(didTapSearchButton), for: .touchUpInside)
+        button.isEnabled = false
         return button
     }()
     
@@ -39,6 +40,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
         view.backgroundColor = .white
         
         setupUI()
+        setupBindings()
     }
     
     private func setupUI() {
@@ -51,14 +53,28 @@ class SearchViewController: UIViewController, SearchViewProtocol {
             searchTextfield.heightAnchor.constraint(equalToConstant: 40),
             
             searchButton.topAnchor.constraint(equalTo: searchTextfield.bottomAnchor, constant: 12),
-            searchButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            searchButton.heightAnchor.constraint(equalToConstant: 40)
+            searchButton.centerXAnchor.constraint(equalTo: searchTextfield.centerXAnchor)
         ])
     }
     
+    private func setupBindings() {
+        NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: searchTextfield)
+            .compactMap { ($0.object as? UITextField)?.text }
+            .sink { [weak self] text in
+                self?.viewModel?.searchText.value = text
+            }
+            .store(in: &cancellables)
+        
+        viewModel?.isEnabled
+            .receive(on: RunLoop.main)
+            .sink { [weak self] isEnabled in
+                self?.searchButton.isEnabled = isEnabled
+            }
+            .store(in: &cancellables)
+    }
+    
     @objc private func didTapSearchButton() {
-       guard let text = searchTextfield.text, !text.isEmpty else { return }
-       viewModel?.didChangeSearchText(query: text)
+       viewModel?.didTapSearch()
     }
     
     required init?(coder: NSCoder) {

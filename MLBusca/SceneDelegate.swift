@@ -19,6 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = navigationController
         self.window = window
         window.makeKeyAndVisible()
-        SearchCoordinator.start(in: navigationController)
+        SearchCoordinator(navigationController: navigationController).show()
     }
 }

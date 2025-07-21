@@ -14,9 +14,9 @@ final class SearchResultsCoordinator: SearchResultsCoordinatorProtocol {
         self.navigationController = navigationController
     }
 
-    static func start(in navigationController: UINavigationController, with query: String) {
+    func show(for query: String) {
         let viewModel = SearchResultsViewModel(with: query)
-        viewModel.coordinator = SearchResultsCoordinator(navigationController: navigationController)
+        viewModel.coordinator = self
         let view = SearchResultsViewController(viewModel: viewModel)
         
         view.viewModel = viewModel

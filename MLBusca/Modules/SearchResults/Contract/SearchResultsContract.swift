@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SearchResultsCoordinatorProtocol: AnyObject {
-    static func start(in navigationController: UINavigationController, with query: String)
+    func show(for query: String)
 }
 
 protocol SearchResultsViewModelProtocol: AnyObject {

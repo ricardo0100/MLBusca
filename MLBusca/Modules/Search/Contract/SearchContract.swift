@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Combine
 
 protocol SearchCoordinatorProtocol: AnyObject {
-    static func start(in navigationController: UINavigationController)
+    func show()
     func showSearchDetails(for query: String)
 }
 
@@ -16,7 +17,10 @@ protocol SearchViewModelProtocol: AnyObject {
     var coordinator: SearchCoordinatorProtocol? { get set }
     var view: SearchViewProtocol? { get set }
     
-    func didChangeSearchText(query: String)
+    var searchText: CurrentValueSubject<String, Never> { get }
+    var isEnabled: CurrentValueSubject<Bool, Never> { get }
+    
+    func didTapSearch()
 }
 
 protocol SearchViewProtocol: AnyObject {

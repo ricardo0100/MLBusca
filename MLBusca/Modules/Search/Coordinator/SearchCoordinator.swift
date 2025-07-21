@@ -9,22 +9,23 @@ import UIKit
 
 final class SearchCoordinator: SearchCoordinatorProtocol {
     let navigationController: UINavigationController
+    let resultsCoordinator: SearchResultsCoordinator
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.resultsCoordinator = SearchResultsCoordinator(navigationController: navigationController)
     }
 
-    static func start(in navigationController: UINavigationController) {
+    func show() {
         let viewModel = SearchViewModel()
-        viewModel.coordinator = SearchCoordinator(navigationController: navigationController)
         let view = SearchViewController(viewModel: viewModel)
-        
+        viewModel.coordinator = self
         view.viewModel = viewModel
         viewModel.view = view
         navigationController.pushViewController(view, animated: true)
     }
 
     func showSearchDetails(for query: String) {
-        SearchResultsCoordinator.start(in: navigationController, with: query)
+        resultsCoordinator.show(for: query)
     }
 }
