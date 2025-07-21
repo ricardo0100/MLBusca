@@ -25,6 +25,6 @@ final class SearchCoordinator: SearchCoordinatorProtocol {
     }
 
     func showSearchDetails(for query: String) {
-        print("Details not implemented. query: \(query)")
+        SearchResultsCoordinator.start(in: navigationController, with: query)
     }
 }
