@@ -29,6 +29,13 @@
 			);
 			target = CF0FF4F22E2D310400696336 /* MLBusca */;
 		};
+		CF5EE4ED2E2F0262009AB75B /* Exceptions for "MLBuscaTests" folder in "MLBusca" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Mocks/APIServiceMock.swift,
+			);
+			target = CF0FF4F22E2D310400696336 /* MLBusca */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -42,6 +49,9 @@
 		};
 		CF0FF55A2E2DC68D00696336 /* MLBuscaTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CF5EE4ED2E2F0262009AB75B /* Exceptions for "MLBuscaTests" folder in "MLBusca" target */,
+			);
 			path = MLBuscaTests;
 			sourceTree = "<group>";
 		};

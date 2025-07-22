@@ -10,6 +10,7 @@ import Combine
 
 class SearchResultsViewController: UIViewController, SearchResultsViewProtocol {
     var viewModel: SearchResultsViewModelProtocol?
+    private var cancellables: Set<AnyCancellable> = []
     
     required init(viewModel: SearchResultsViewModelProtocol) {
         self.viewModel = viewModel
@@ -21,10 +22,21 @@ class SearchResultsViewController: UIViewController, SearchResultsViewProtocol {
         view.backgroundColor = .white
         
         setupUI()
+        viewModel?.viewDidLoad()
     }
     
     private func setupUI() {
-        
+        viewModel?
+        .products
+        .receive(on: RunLoop.main)
+        .sink { _ in
+        } receiveValue: { products in
+            self.update(with: products)
+        }.store(in: &cancellables)
+    }
+    
+    func update(with products: [Product]) {
+        print(products)
     }
     
     required init?(coder: NSCoder) {
