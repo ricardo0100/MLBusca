@@ -8,9 +8,11 @@
 import UIKit
 import Combine
 
-class SearchResultsViewController: UIViewController, SearchResultsViewProtocol {
+class SearchResultsViewController: UITableViewController, SearchResultsViewProtocol {
+    private let cellID = "SearchResultsCell"
     var viewModel: SearchResultsViewModelProtocol?
     private var cancellables: Set<AnyCancellable> = []
+    private var productsDataSource: [Product] = []
     
     required init(viewModel: SearchResultsViewModelProtocol) {
         self.viewModel = viewModel
@@ -20,23 +22,39 @@ class SearchResultsViewController: UIViewController, SearchResultsViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        setupTableView()
         setupUI()
         viewModel?.viewDidLoad()
     }
     
+    private func setupTableView() {
+        tableView.register(SearchResultsCell.self, forCellReuseIdentifier: cellID)
+    }
+    
     private func setupUI() {
         viewModel?
-        .products
-        .receive(on: RunLoop.main)
-        .sink { _ in
-        } receiveValue: { products in
-            self.update(with: products)
-        }.store(in: &cancellables)
+            .products
+            .receive(on: RunLoop.main)
+            .sink { _ in
+            } receiveValue: { products in
+                self.update(with: products)
+            }
+            .store(in: &cancellables)
     }
     
     func update(with products: [Product]) {
-        print(products)
+        productsDataSource = products
+        tableView.reloadData()
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        productsDataSource.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID) as! SearchResultsCell
+        cell.configure(with: productsDataSource[indexPath.row])
+        return cell
     }
     
     required init?(coder: NSCoder) {
