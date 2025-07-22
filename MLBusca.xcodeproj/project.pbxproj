@@ -36,6 +36,65 @@
 			);
 			target = CF0FF4F22E2D310400696336 /* MLBusca */;
 		};
+		CF5EE59A2E2FAF9C009AB75B /* Exceptions for "MLBusca" folder in "MLBuscaTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Mock Data/arroz/item-MLA1234-category.json",
+				"Mock Data/arroz/item-MLA1234-description.json",
+				"Mock Data/arroz/item-MLA1234.json",
+				"Mock Data/arroz/item-MLA1400724165-category.json",
+				"Mock Data/arroz/item-MLA1400724165-description.json",
+				"Mock Data/arroz/item-MLA1400724165.json",
+				"Mock Data/arroz/item-MLA1411360722-category.json",
+				"Mock Data/arroz/item-MLA1411360722-description.json",
+				"Mock Data/arroz/item-MLA1411360722.json",
+				"Mock Data/arroz/item-MLA1781975648-category.json",
+				"Mock Data/arroz/item-MLA1781975648-description.json",
+				"Mock Data/arroz/item-MLA1781975648.json",
+				"Mock Data/arroz/search-MLA-arroz.json",
+				"Mock Data/cafe/item-MLB3128412969-category.json",
+				"Mock Data/cafe/item-MLB3128412969-description.json",
+				"Mock Data/cafe/item-MLB3128412969.json",
+				"Mock Data/cafe/item-MLB3647888693-category.json",
+				"Mock Data/cafe/item-MLB3647888693-description.json",
+				"Mock Data/cafe/item-MLB3647888693.json",
+				"Mock Data/cafe/item-MLB3998144995-category.json",
+				"Mock Data/cafe/item-MLB3998144995-description.json",
+				"Mock Data/cafe/item-MLB3998144995.json",
+				"Mock Data/cafe/search-MLA-cafe.json",
+				"Mock Data/camisa/item-MLA738241667-category.json",
+				"Mock Data/camisa/item-MLA738241667-description.json",
+				"Mock Data/camisa/item-MLA738241667.json",
+				"Mock Data/camisa/item-MLA904895322-category.json",
+				"Mock Data/camisa/item-MLA904895322-description.json",
+				"Mock Data/camisa/item-MLA904895322.json",
+				"Mock Data/camisa/item-MLA1385224303-category.json",
+				"Mock Data/camisa/item-MLA1385224303-description.json",
+				"Mock Data/camisa/item-MLA1385224303.json",
+				"Mock Data/camisa/search-MLA-camisa.json",
+				"Mock Data/iphone/item-MLA1116621831-category.json",
+				"Mock Data/iphone/item-MLA1116621831-description.json",
+				"Mock Data/iphone/item-MLA1116621831.json",
+				"Mock Data/iphone/item-MLA1998544776-category.json",
+				"Mock Data/iphone/item-MLA1998544776-description.json",
+				"Mock Data/iphone/item-MLA1998544776.json",
+				"Mock Data/iphone/item-MLA2005705454-category.json",
+				"Mock Data/iphone/item-MLA2005705454-description.json",
+				"Mock Data/iphone/item-MLA2005705454.json",
+				"Mock Data/iphone/search-MLA-iphone.json",
+				"Mock Data/zapatilhas/item-MLA1679049946-category.json",
+				"Mock Data/zapatilhas/item-MLA1679049946-description.json",
+				"Mock Data/zapatilhas/item-MLA1679049946.json",
+				"Mock Data/zapatilhas/item-MLA1884722608-category.json",
+				"Mock Data/zapatilhas/item-MLA1884722608-description.json",
+				"Mock Data/zapatilhas/item-MLA1884722608.json",
+				"Mock Data/zapatilhas/item-MLA1975936620-category.json",
+				"Mock Data/zapatilhas/item-MLA1975936620-description.json",
+				"Mock Data/zapatilhas/item-MLA1975936620.json",
+				"Mock Data/zapatilhas/search-MLA-zapatillas.json",
+			);
+			target = CF0FF5582E2DC68D00696336 /* MLBuscaTests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -43,6 +102,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				CF0FF5052E2D310600696336 /* Exceptions for "MLBusca" folder in "MLBusca" target */,
+				CF5EE59A2E2FAF9C009AB75B /* Exceptions for "MLBusca" folder in "MLBuscaTests" target */,
 			);
 			path = MLBusca;
 			sourceTree = "<group>";
