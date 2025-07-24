@@ -14,10 +14,20 @@ enum APIServiceError: Error {
 
 protocol APIServiceProtocol {
     func searchProduct(query: String) async throws -> SearchResponse
+    func loadDescription(for productID: String) async throws -> ProductDescriptionResponse
+    func loadCategory(for productID: String) async throws -> ProductCategory
 }
 
 class APIService: APIServiceProtocol {
     func searchProduct(query: String) async throws -> SearchResponse {
+        throw APIServiceError.notImplemented
+    }
+    
+    func loadDescription(for productID: String) async throws -> ProductDescriptionResponse {
+        throw APIServiceError.notImplemented
+    }
+    
+    func loadCategory(for productID: String) async throws -> ProductCategory {
         throw APIServiceError.notImplemented
     }
 }

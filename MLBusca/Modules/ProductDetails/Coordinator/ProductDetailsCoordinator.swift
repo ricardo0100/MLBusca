@@ -14,7 +14,7 @@ class ProductDetailsCoordinator: ProductDetailsCoordinatorProtocol {
     }
     
     func showDetails(for product: Product) {
-        let viewModel = ProductDetailsViewModel(product: product)
+        let viewModel = ProductDetailsViewModel(with: product, apiService: MockAPIService())
         viewModel.coordinator = self
         let viewController = ProductDetailsViewController()
         viewController.viewModel = viewModel

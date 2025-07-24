@@ -27,6 +27,14 @@ class MockAPIService: APIServiceProtocol {
         }
     }
     
+    func loadCategory(for productID: String) async throws -> ProductCategory {
+        throw APIServiceError.notImplemented
+    }
+    
+    func loadDescription(for productID: String) async throws -> ProductDescriptionResponse {
+        throw APIServiceError.notImplemented
+    }
+    
     private func listJSONFiles(in subdirectory: String? = nil) -> [URL] {
         guard let bundleURL = Bundle.main.resourceURL else {
             print("❌ Bundle URL não encontrada.")

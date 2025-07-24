@@ -24,16 +24,11 @@ struct Product: Codable {
     let orderBackend: Int
     let price: Double
     let originalPrice: Double?
-//    let salePrice: SalePrice?
     let availableQuantity: Int
     let officialStoreID: Int?
     let officialStoreName: String?
     let acceptsMercadoPago: Bool
-//    let shipping: Shipping
     let stopTime: String
-//    let seller: Seller
-//    let address: Address
-//    let attributes: [Attribute]
     let catalogListing: Bool
     let inventoryID: String?
     let resultType: String
@@ -53,14 +48,11 @@ struct Product: Codable {
         case orderBackend = "order_backend"
         case price
         case originalPrice = "original_price"
-//        case salePrice = "sale_price"
         case availableQuantity = "available_quantity"
         case officialStoreID = "official_store_id"
         case officialStoreName = "official_store_name"
         case acceptsMercadoPago = "accepts_mercadopago"
-//        case shipping
         case stopTime = "stop_time"
-//        case seller, address, attributes
         case catalogListing = "catalog_listing"
         case inventoryID = "inventory_id"
         case resultType = "result_type"

@@ -14,14 +14,14 @@ protocol ProductDetailsCoordinatorProtocol: AnyObject {
 protocol ProductDetailsViewModelProtocol: AnyObject {
     var coordinator: ProductDetailsCoordinatorProtocol? { get set }
     var view: ProductDetailsViewProtocol? { get set }
+    var product: AnyPublisher<Product, Never> { get }
+    var productCategory: AnyPublisher<ProductCategory?, Never> { get }
     
-    init(product: Product)
+    init(with product: Product, apiService: APIServiceProtocol)
     
-    func onViewDidLoad()
+    func viewDidLoad()
 }
 
 protocol ProductDetailsViewProtocol: AnyObject {
     var viewModel: ProductDetailsViewModelProtocol? { get set }
-    
-    
 }
