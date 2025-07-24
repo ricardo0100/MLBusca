@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 
 protocol ProductDetailsCoordinatorProtocol: AnyObject {
     func showDetails(for product: ProductSearchItem)
@@ -15,10 +16,11 @@ protocol ProductDetailsViewModelProtocol: AnyObject {
     var coordinator: ProductDetailsCoordinatorProtocol? { get set }
     var view: ProductDetailsViewProtocol? { get set }
     
-    var productItem: AnyPublisher<ProductSearchItem, Never> { get }
-    var productDetails: AnyPublisher<ProductDetails?, Never> { get }
-    var productCategory: AnyPublisher<ProductCategory?, Never> { get }
-    var productDescription: AnyPublisher<ProductDescription?, Never> { get }
+    var productTitle: AnyPublisher<String, Never> { get }
+    var productPath: AnyPublisher<String, Never> { get }
+    var productImages: AnyPublisher<[URL], Never> { get }
+    var productPrice: AnyPublisher<String, Never> { get }
+    var productDescription: AnyPublisher<String, Never> { get }
     
     init(with product: ProductSearchItem, apiService: APIServiceProtocol)
     

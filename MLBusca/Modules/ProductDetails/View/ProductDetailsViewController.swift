@@ -42,6 +42,23 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewProtocol
         return label
     }()
     
+    private lazy var pathLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.textColor = .systemGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = .zero
+        label.font = .systemFont(ofSize: 14, weight: .light)
+        label.textColor = .systemGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var carouselView: ImageCarouselView = {
         let view = ImageCarouselView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -64,10 +81,12 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewProtocol
 
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-
+        
+        contentView.addSubview(pathLabel)
         contentView.addSubview(carouselView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(priceLabel)
+        contentView.addSubview(descriptionLabel)
 
         NSLayoutConstraint.activate([
             // ScrollView
@@ -83,8 +102,12 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewProtocol
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
 
-            // ImageView
-            carouselView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            pathLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            pathLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            pathLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+
+            // CarouselView
+            carouselView.topAnchor.constraint(equalTo: pathLabel.bottomAnchor, constant: 12),
             carouselView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             carouselView.heightAnchor.constraint(equalToConstant: 250),
             carouselView.widthAnchor.constraint(equalTo: carouselView.heightAnchor),
@@ -98,27 +121,38 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewProtocol
             priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
             priceLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             priceLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+            
+            // DescriptionLabel
+            descriptionLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 12),
+            descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            descriptionLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 
     // MARK: - Bindings
 
     private func bindPublishers() {
-        viewModel?.productItem
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] product in
-                self?.updateView(with: product)
-            }
-            .store(in: &cancellables)
-        viewModel?.productDetails
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] product in
-                if let product = product {
-                    self?.updateView(with: product)
-                }
-            }
-            .store(in: &cancellables)
+        viewModel?.productTitle.receive(on: RunLoop.main).sink(receiveValue: { [weak self] title in
+            self?.title = title
+            self?.titleLabel.text = title
+        }).store(in: &cancellables)
+        
+        viewModel?.productPath.receive(on: RunLoop.main).sink(receiveValue: { [weak self] path in
+            self?.pathLabel.text = path
+        }).store(in: &cancellables)
+        
+        viewModel?.productImages.receive(on: RunLoop.main).sink(receiveValue: { [weak self] images in
+            self?.carouselView.setImageURLs(images)
+        }).store(in: &cancellables)
+        
+        viewModel?.productPrice.receive(on: RunLoop.main).sink(receiveValue: { [weak self] price in
+            self?.priceLabel.text = price
+        }).store(in: &cancellables)
+        
+        viewModel?.productDescription.receive(on: RunLoop.main).sink(receiveValue: {  [weak self] description in
+            self?.descriptionLabel.text = description
+        }).store(in: &cancellables)
     }
     
     // MARK: - Update UI

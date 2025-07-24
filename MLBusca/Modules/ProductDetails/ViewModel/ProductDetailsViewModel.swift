@@ -5,15 +5,17 @@
 //  Created by Ricardo Gehrke Filho on 23/07/25.
 //
 import Combine
+import Foundation
 
 class ProductDetailsViewModel: ProductDetailsViewModelProtocol {
     var coordinator: ProductDetailsCoordinatorProtocol?
     weak var view: ProductDetailsViewProtocol?
     
-    let productItem: AnyPublisher<ProductSearchItem, Never>
-    var productDetails: AnyPublisher<ProductDetails?, Never>
-    let productCategory: AnyPublisher<ProductCategory?, Never>
-    let productDescription: AnyPublisher<ProductDescription?, Never>
+    var productTitle: AnyPublisher<String, Never>
+    var productPath: AnyPublisher<String, Never>
+    var productImages: AnyPublisher<[URL], Never>
+    var productPrice: AnyPublisher<String, Never>
+    var productDescription: AnyPublisher<String, Never>
     
     private let apiService: APIServiceProtocol
     private let productItemSubject: CurrentValueSubject<ProductSearchItem, Never>
@@ -28,10 +30,32 @@ class ProductDetailsViewModel: ProductDetailsViewModelProtocol {
         productCategorySubject = .init(nil)
         productDescriptionSubject = .init(nil)
         
-        self.productItem = productItemSubject.eraseToAnyPublisher()
-        self.productDetails = productDetailsSubject.eraseToAnyPublisher()
-        self.productCategory = productCategorySubject.eraseToAnyPublisher()
-        self.productDescription = productDescriptionSubject.eraseToAnyPublisher()
+        productTitle = productItemSubject
+            .map { $0.title }
+            .eraseToAnyPublisher()
+        
+        productPath = productCategorySubject
+            .compactMap { $0?.pathFromRoot }
+            .map { $0.map { $0.name }.reduce("") { $0.appending("/").appending($1) } }
+            .eraseToAnyPublisher()
+        
+        productImages = productDetailsSubject
+            .compactMap { $0?.pictures }
+            .map { pictures in
+                pictures.compactMap { URL(string: $0.url) }
+            }
+            .eraseToAnyPublisher()
+
+        productPrice = productDetailsSubject
+            .compactMap { $0 }
+            .map { details in
+                String(format: "\(details.currencyID) %.2f", details.price / 100)
+            }
+            .eraseToAnyPublisher()
+
+        productDescription = productDescriptionSubject
+            .compactMap { $0?.plainText }
+            .eraseToAnyPublisher()
     }
     
     func viewDidLoad() {
