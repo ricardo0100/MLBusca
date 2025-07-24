@@ -8,16 +8,18 @@
 import Combine
 
 protocol ProductDetailsCoordinatorProtocol: AnyObject {
-    func showDetails(for product: Product)
+    func showDetails(for product: ProductSearchItem)
 }
 
 protocol ProductDetailsViewModelProtocol: AnyObject {
     var coordinator: ProductDetailsCoordinatorProtocol? { get set }
     var view: ProductDetailsViewProtocol? { get set }
-    var product: AnyPublisher<Product, Never> { get }
-    var productCategory: AnyPublisher<ProductCategory?, Never> { get }
     
-    init(with product: Product, apiService: APIServiceProtocol)
+    var product: AnyPublisher<ProductSearchItem, Never> { get }
+    var productCategory: AnyPublisher<ProductCategory?, Never> { get }
+    var productDescription: AnyPublisher<ProductDescription?, Never> { get }
+    
+    init(with product: ProductSearchItem, apiService: APIServiceProtocol)
     
     func viewDidLoad()
 }

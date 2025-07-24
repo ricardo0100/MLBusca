@@ -90,7 +90,7 @@ class SearchResultsCell: UITableViewCell {
         ])
     }
     
-    func configure(with product: Product) {
+    func configure(with product: ProductSearchItem) {
         titleLabel.text = product.title
         priceLabel.text = product.price.formatted(.currency(code: "R$"))
         loadImage(from: product.thumbnail)

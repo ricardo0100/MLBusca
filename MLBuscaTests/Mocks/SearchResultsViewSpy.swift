@@ -11,7 +11,7 @@ import Combine
 class SearchResultsViewSpy: SearchResultsViewProtocol {
     var cancellables = Set<AnyCancellable>()
     
-    var products: [Product] = []
+    var products: [ProductSearchItem] = []
     
     var viewModel: SearchResultsViewModelProtocol?
     
@@ -26,7 +26,7 @@ class SearchResultsViewSpy: SearchResultsViewProtocol {
             .store(in: &cancellables)
     }
     
-    func update(with products: [MLBusca.Product]) {
+    func update(with products: [MLBusca.ProductSearchItem]) {
         self.products = products
     }
 }

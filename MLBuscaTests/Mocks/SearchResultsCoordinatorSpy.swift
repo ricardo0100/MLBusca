@@ -15,7 +15,7 @@ class SearchResultsCoordinatorSpy: SearchResultsCoordinatorProtocol {
         didShowCalled = true
     }
     
-    func showProductDetails(for product: MLBusca.Product) {
+    func showProductDetails(for product: MLBusca.ProductSearchItem) {
         didShowProductDetailsCalled = true
     }
 }

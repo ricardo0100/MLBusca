@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Product: Codable {
+struct ProductSearchItem: Codable {
     let id: String
     let title: String
     let condition: String

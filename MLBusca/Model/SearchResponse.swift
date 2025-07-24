@@ -12,7 +12,7 @@ struct SearchResponse: Codable {
     let countryDefaultTimeZone: String
     let query: String
     let paging: Paging
-    let results: [Product]
+    let results: [ProductSearchItem]
 
     enum CodingKeys: String, CodingKey {
         case siteID = "site_id"

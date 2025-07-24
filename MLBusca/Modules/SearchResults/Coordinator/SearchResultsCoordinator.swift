@@ -24,7 +24,7 @@ final class SearchResultsCoordinator: SearchResultsCoordinatorProtocol {
         navigationController.pushViewController(view, animated: true)
     }
     
-    func showProductDetails(for product: Product) {
+    func showProductDetails(for product: ProductSearchItem) {
         let productDetailsCoordinator = ProductDetailsCoordinator(navigationController: navigationController)
         productDetailsCoordinator.showDetails(for: product)
     }

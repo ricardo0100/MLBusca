@@ -37,15 +37,26 @@ class MockAPIService: APIServiceProtocol {
         do {
             let data = try Data(contentsOf: fileURL)
             let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
             return try decoder.decode(ProductCategory.self, from: data)
         } catch {
             throw APIServiceError.decodeError
         }
     }
     
-    func loadDescription(for productID: String) async throws -> ProductDescriptionResponse {
-        throw APIServiceError.notImplemented
+    func loadDescription(for productID: String) async throws -> ProductDescription {
+        let filename = "item-\(productID)-description.json"
+        
+        guard let fileURL = files.first(where: { $0.lastPathComponent == filename }) else {
+            throw APIServiceError.fileNotFound
+        }
+
+        do {
+            let data = try Data(contentsOf: fileURL)
+            let decoder = JSONDecoder()
+            return try decoder.decode(ProductDescription.self, from: data)
+        } catch {
+            throw APIServiceError.decodeError
+        }
     }
     
     private func listJSONFiles(in subdirectory: String? = nil) -> [URL] {

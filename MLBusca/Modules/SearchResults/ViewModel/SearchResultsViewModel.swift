@@ -15,8 +15,8 @@ final class SearchResultsViewModel: SearchResultsViewModelProtocol {
     private let apiService: APIServiceProtocol
     private let searchText: String
     
-    var products: AnyPublisher<[Product], Never>
-    var productsSubject: CurrentValueSubject<[Product], Never>
+    var products: AnyPublisher<[ProductSearchItem], Never>
+    var productsSubject: CurrentValueSubject<[ProductSearchItem], Never>
     
     init(with text: String, apiService: APIServiceProtocol) {
         self.apiService = apiService
@@ -36,7 +36,7 @@ final class SearchResultsViewModel: SearchResultsViewModelProtocol {
         }
     }
     
-    func didSelect(product: Product) {
+    func didSelect(product: ProductSearchItem) {
         coordinator?.showProductDetails(for: product)
     }
 }

@@ -13,7 +13,7 @@ class ProductDetailsCoordinator: ProductDetailsCoordinatorProtocol {
         self.navigationController = navigationController
     }
     
-    func showDetails(for product: Product) {
+    func showDetails(for product: ProductSearchItem) {
         let viewModel = ProductDetailsViewModel(with: product, apiService: MockAPIService())
         viewModel.coordinator = self
         let viewController = ProductDetailsViewController()

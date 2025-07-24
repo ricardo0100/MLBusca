@@ -12,7 +12,7 @@ class SearchResultsViewController: UITableViewController, SearchResultsViewProto
     private let cellID = "SearchResultsCell"
     var viewModel: SearchResultsViewModelProtocol?
     private var cancellables: Set<AnyCancellable> = []
-    private var productsDataSource: [Product] = []
+    private var productsDataSource: [ProductSearchItem] = []
     
     required init(viewModel: SearchResultsViewModelProtocol) {
         self.viewModel = viewModel
@@ -42,7 +42,7 @@ class SearchResultsViewController: UITableViewController, SearchResultsViewProto
             .store(in: &cancellables)
     }
     
-    func update(with products: [Product]) {
+    func update(with products: [ProductSearchItem]) {
         productsDataSource = products
         tableView.reloadData()
     }

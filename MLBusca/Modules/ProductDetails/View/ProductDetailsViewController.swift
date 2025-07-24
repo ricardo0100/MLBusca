@@ -29,7 +29,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewProtocol
         }.store(in: &cancellables)
     }
     
-    private func updateView(with product: Product) {
+    private func updateView(with product: ProductSearchItem) {
         title = product.title
     }
 }
