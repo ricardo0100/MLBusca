@@ -50,7 +50,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelProtocol {
         productPrice = productDetailsSubject
             .compactMap { $0 }
             .map { details in
-                String(format: "\(details.currencyID) %.2f", details.price / 100)
+                details.price.formatted(.currency(code: details.currencyID))
             }
             .eraseToAnyPublisher()
 

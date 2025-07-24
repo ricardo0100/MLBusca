@@ -33,7 +33,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewProtocol
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .bold)
@@ -44,6 +44,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewProtocol
     
     private lazy var pathLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = .zero
         label.font = .systemFont(ofSize: 12, weight: .regular)
         label.textColor = .systemGray
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -64,18 +65,18 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewProtocol
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     // MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         bindPublishers()
         viewModel?.viewDidLoad()
     }
-
+    
     // MARK: - Setup Views
-
+    
     private func setupViews() {
         view.backgroundColor = .systemBackground
 
@@ -87,7 +88,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewProtocol
         contentView.addSubview(titleLabel)
         contentView.addSubview(priceLabel)
         contentView.addSubview(descriptionLabel)
-
+        
         NSLayoutConstraint.activate([
             // ScrollView
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),

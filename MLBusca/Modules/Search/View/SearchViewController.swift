@@ -18,6 +18,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
         textField.borderStyle = .roundedRect
         textField.placeholder = "Buscar"
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.autocorrectionType = .no
         return textField
     }()
     
