@@ -5,7 +5,6 @@
 //  Created by Ricardo Gehrke Filho on 20/07/25.
 //
 
-import UIKit
 import Combine
 
 protocol SearchCoordinatorProtocol: AnyObject {

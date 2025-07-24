@@ -23,4 +23,8 @@ final class SearchResultsCoordinator: SearchResultsCoordinatorProtocol {
         viewModel.view = view
         navigationController.pushViewController(view, animated: true)
     }
+    
+    func showProductDetails(for product: Product) {
+        
+    }
 }

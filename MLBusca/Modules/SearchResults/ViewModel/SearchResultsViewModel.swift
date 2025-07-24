@@ -35,4 +35,8 @@ final class SearchResultsViewModel: SearchResultsViewModelProtocol {
             }
         }
     }
+    
+    func didSelect(product: Product) {
+        coordinator?.showProductDetails(for: product)
+    }
 }

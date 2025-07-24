@@ -9,6 +9,7 @@ import Combine
 
 protocol SearchResultsCoordinatorProtocol: AnyObject {
     func show(for query: String)
+    func showProductDetails(for product: Product)
 }
 
 protocol SearchResultsViewModelProtocol: AnyObject {
@@ -20,6 +21,7 @@ protocol SearchResultsViewModelProtocol: AnyObject {
     init(with text: String, apiService: APIServiceProtocol)
     
     func viewDidLoad()
+    func didSelect(product: Product)
 }
 
 protocol SearchResultsViewProtocol: AnyObject {

@@ -57,6 +57,10 @@ class SearchResultsViewController: UITableViewController, SearchResultsViewProto
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel?.didSelect(product: productsDataSource[indexPath.row])
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
