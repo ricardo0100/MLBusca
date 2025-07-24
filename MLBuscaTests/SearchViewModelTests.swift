@@ -9,7 +9,7 @@ import Testing
 import UIKit
 @testable import MLBusca
 
-struct MLBuscaTests {
+struct SearchViewModelTests {
     let viewModel: SearchViewModelProtocol
     let coordinator = SearchCoordinatorSpy()
     

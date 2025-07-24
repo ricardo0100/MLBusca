@@ -27,7 +27,7 @@ class MockAPIService: APIServiceProtocol {
         }
     }
     
-    func listJSONFiles(in subdirectory: String? = nil) -> [URL] {
+    private func listJSONFiles(in subdirectory: String? = nil) -> [URL] {
         guard let bundleURL = Bundle.main.resourceURL else {
             print("❌ Bundle URL não encontrada.")
             return []
@@ -50,7 +50,7 @@ class MockAPIService: APIServiceProtocol {
         }
     }
     
-    func readJSONFile<T: Decodable>(in url: URL, as type: T.Type) -> T? {
+    private func readJSONFile<T: Decodable>(in url: URL, as type: T.Type) -> T? {
         do {
             let data = try Data(contentsOf: url)
             let decoder = JSONDecoder()
