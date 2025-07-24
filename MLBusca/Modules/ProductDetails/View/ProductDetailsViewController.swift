@@ -154,6 +154,10 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewProtocol
         viewModel?.productDescription.receive(on: RunLoop.main).sink(receiveValue: {  [weak self] description in
             self?.descriptionLabel.text = description
         }).store(in: &cancellables)
+        
+        viewModel?.error.receive(on: RunLoop.main).sink(receiveValue: {  [weak self] error in
+            self?.presentAlert(error.localizedDescription)
+        }).store(in: &cancellables)
     }
     
     // MARK: - Update UI
@@ -162,12 +166,6 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewProtocol
         title = product.title
         titleLabel.text = product.title
         priceLabel.text = String(format: "R$ %.2f", product.price)
-    }
-    
-    private func updateView(with product: ProductDetails) {
-        if let url = URL(string: product.thumbnail) {
-            carouselView.setImageURLs(product.pictures.compactMap { URL(string: $0.url) })
-        }
     }
 }
 

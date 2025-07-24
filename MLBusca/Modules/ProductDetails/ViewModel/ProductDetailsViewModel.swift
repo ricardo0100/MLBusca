@@ -16,12 +16,14 @@ class ProductDetailsViewModel: ProductDetailsViewModelProtocol {
     var productImages: AnyPublisher<[URL], Never>
     var productPrice: AnyPublisher<String, Never>
     var productDescription: AnyPublisher<String, Never>
+    var error: AnyPublisher<Error, Never>
     
     private let apiService: APIServiceProtocol
     private let productItemSubject: CurrentValueSubject<ProductSearchItem, Never>
     private let productDetailsSubject: CurrentValueSubject<ProductDetails?, Never>
     private let productCategorySubject: CurrentValueSubject<ProductCategory?, Never>
     private let productDescriptionSubject: CurrentValueSubject<ProductDescription?, Never>
+    private let errorSubject: PassthroughSubject<Error, Never>
     
     required init(with product: ProductSearchItem, apiService: APIServiceProtocol) {
         self.apiService = apiService
@@ -29,6 +31,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelProtocol {
         productDetailsSubject = .init(nil)
         productCategorySubject = .init(nil)
         productDescriptionSubject = .init(nil)
+        errorSubject = .init()
         
         productTitle = productDetailsSubject
             .compactMap { $0 }
@@ -57,6 +60,10 @@ class ProductDetailsViewModel: ProductDetailsViewModelProtocol {
         productDescription = productDescriptionSubject
             .compactMap { $0?.plainText }
             .eraseToAnyPublisher()
+        
+        error = errorSubject
+            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+            .eraseToAnyPublisher()
     }
     
     func viewDidLoad() {
@@ -72,7 +79,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelProtocol {
                 let details = try await apiService.loadProduct(for: product.id)
                 productDetailsSubject.send(details)
             } catch {
-                print(error)
+                self.errorSubject.send(error)
             }
         }
     }
@@ -84,7 +91,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelProtocol {
                 let category = try await apiService.loadCategory(for: product.id)
                 productCategorySubject.send(category)
             } catch {
-                print(error)
+                self.errorSubject.send(error)
             }
         }
     }
@@ -96,7 +103,7 @@ class ProductDetailsViewModel: ProductDetailsViewModelProtocol {
                 let description = try await apiService.loadDescription(for: product.id)
                 productDescriptionSubject.send(description)
             } catch {
-                print(error)
+                self.errorSubject.send(error)
             }
         }
     }

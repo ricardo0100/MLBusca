@@ -21,6 +21,7 @@ protocol ProductDetailsViewModelProtocol: AnyObject {
     var productImages: AnyPublisher<[URL], Never> { get }
     var productPrice: AnyPublisher<String, Never> { get }
     var productDescription: AnyPublisher<String, Never> { get }
+    var error: AnyPublisher<Error, Never> { get }
     
     init(with product: ProductSearchItem, apiService: APIServiceProtocol)
     
