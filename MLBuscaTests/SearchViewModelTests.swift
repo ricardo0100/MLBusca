@@ -14,20 +14,25 @@ struct SearchViewModelTests {
     let coordinator = SearchCoordinatorSpy()
     
     init() {
-        viewModel = SearchViewModel()
+        viewModel = SearchViewModel(apiService: MockAPIService())
         viewModel.coordinator = coordinator
     }
     
     @Test
-    func testButtonIsDisabledWhenTextIsEmpty() {
-        viewModel.searchText.value = ""
-        #expect(!viewModel.isEnabled.value)
+    func testButtonIsDisabledWhenTextIsEmpty() async {
+        var iterator = viewModel.isEnabled.values.makeAsyncIterator()
+        let isEnabled = await iterator.next()
+        
+        #expect(isEnabled == false)
     }
     
     @Test
-    func testButtonIsDisabledWhenTextIsNotEmpty() {
-        viewModel.searchText.value = "Café"
-        #expect(viewModel.isEnabled.value)
+    func testButtonIsDisabledWhenTextIsNotEmpty() async {
+        viewModel.didUpdateSearchText(text: "cafe")
+        var iterator = viewModel.isEnabled.values.makeAsyncIterator()
+        let isEnabled = await iterator.next()
+        
+        #expect(isEnabled == true)
     }
     
     @Test
