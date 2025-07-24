@@ -16,8 +16,24 @@ class MockAPIService: APIServiceProtocol {
     }
     
     func loadSearchSuggestions(query: String) async throws -> [String] {
-        ["Plim"]
+        let query = query.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        let suggestions = files
+            .filter {
+                $0.lastPathComponent.contains("search-MLA")
+            }
+            .map {
+                $0.lastPathComponent
+                    .replacingOccurrences(of: "search-MLA-", with: "")
+                    .replacingOccurrences(of: ".json", with: "")
+            }
+            .filter {
+                $0.lowercased().contains(query)
+            }
+        
+        return suggestions
     }
+
     
     func searchProduct(query: String) async throws -> SearchResponse {
         let query = query.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
