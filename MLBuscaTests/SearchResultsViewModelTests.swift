@@ -24,6 +24,7 @@ struct SearchResultsViewModelTests {
     func viewDidLoad_fetchesProductsAndUpdatesView() async throws {
         let viewModel = SearchResultsViewModel(with: "iphone", apiService: apiService)
         viewModel.viewDidLoad()
+        try await Task.sleep(for: .milliseconds(100))
         
         var iterator = viewModel.products.values.makeAsyncIterator()
         let products = await iterator.next()
@@ -37,6 +38,8 @@ struct SearchResultsViewModelTests {
         let viewModel = SearchResultsViewModel(with: "iphone", apiService: apiService)
         viewModel.coordinator = coordinator
         viewModel.viewDidLoad()
+        
+        try await Task.sleep(for: .milliseconds(100))
         
         var iterator = viewModel.products.values.makeAsyncIterator()
         let products = await iterator.next()!

@@ -30,7 +30,8 @@ class ProductDetailsViewModel: ProductDetailsViewModelProtocol {
         productCategorySubject = .init(nil)
         productDescriptionSubject = .init(nil)
         
-        productTitle = productItemSubject
+        productTitle = productDetailsSubject
+            .compactMap { $0 }
             .map { $0.title }
             .eraseToAnyPublisher()
         
