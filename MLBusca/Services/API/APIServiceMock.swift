@@ -28,7 +28,20 @@ class MockAPIService: APIServiceProtocol {
     }
     
     func loadCategory(for productID: String) async throws -> ProductCategory {
-        throw APIServiceError.notImplemented
+        let filename = "item-\(productID)-category.json"
+        
+        guard let fileURL = files.first(where: { $0.lastPathComponent == filename }) else {
+            throw APIServiceError.fileNotFound
+        }
+
+        do {
+            let data = try Data(contentsOf: fileURL)
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            return try decoder.decode(ProductCategory.self, from: data)
+        } catch {
+            throw APIServiceError.decodeError
+        }
     }
     
     func loadDescription(for productID: String) async throws -> ProductDescriptionResponse {

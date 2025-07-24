@@ -10,6 +10,8 @@ import Foundation
 enum APIServiceError: Error {
     case notImplemented
     case noResultsFound
+    case fileNotFound
+    case decodeError
 }
 
 protocol APIServiceProtocol {

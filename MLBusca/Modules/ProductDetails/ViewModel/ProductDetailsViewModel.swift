@@ -13,10 +13,12 @@ class ProductDetailsViewModel: ProductDetailsViewModelProtocol {
     let product: AnyPublisher<Product, Never>
     var productCategory: AnyPublisher<ProductCategory?, Never>
     
+    private let apiService: APIServiceProtocol
     private let productSubject: CurrentValueSubject<Product, Never>
     private let productCategorySubject: CurrentValueSubject<ProductCategory?, Never>
     
     required init(with product: Product, apiService: APIServiceProtocol) {
+        self.apiService = apiService
         productSubject = .init(product)
         productCategorySubject = .init(nil)
         
@@ -25,6 +27,13 @@ class ProductDetailsViewModel: ProductDetailsViewModelProtocol {
     }
     
     func viewDidLoad() {
-        
+        Task {
+            do {
+                let category = try await apiService.loadCategory(for: productSubject.value.id)
+                productCategorySubject.send(category)
+            } catch {
+                print(error)
+            }
+        }
     }
 }
