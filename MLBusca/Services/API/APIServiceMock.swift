@@ -27,6 +27,22 @@ class MockAPIService: APIServiceProtocol {
         }
     }
     
+    func loadProduct(for productID: String) async throws -> ProductDetails {
+        let filename = "item-\(productID).json"
+        
+        guard let fileURL = files.first(where: { $0.lastPathComponent == filename }) else {
+            throw APIServiceError.fileNotFound
+        }
+
+        do {
+            let data = try Data(contentsOf: fileURL)
+            let decoder = JSONDecoder()
+            return try decoder.decode(ProductDetails.self, from: data)
+        } catch {
+            throw APIServiceError.decodeError(description: error.localizedDescription)
+        }
+    }
+    
     func loadCategory(for productID: String) async throws -> ProductCategory {
         let filename = "item-\(productID)-category.json"
         
@@ -39,7 +55,7 @@ class MockAPIService: APIServiceProtocol {
             let decoder = JSONDecoder()
             return try decoder.decode(ProductCategory.self, from: data)
         } catch {
-            throw APIServiceError.decodeError
+            throw APIServiceError.decodeError(description: error.localizedDescription)
         }
     }
     
@@ -55,7 +71,7 @@ class MockAPIService: APIServiceProtocol {
             let decoder = JSONDecoder()
             return try decoder.decode(ProductDescription.self, from: data)
         } catch {
-            throw APIServiceError.decodeError
+            throw APIServiceError.decodeError(description: error.localizedDescription)
         }
     }
     

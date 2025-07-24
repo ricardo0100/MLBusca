@@ -24,7 +24,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewProtocol
     }
     
     private func bindPublishers() {
-        viewModel?.product.sink { [weak self] product in
+        viewModel?.productItem.sink { [weak self] product in
             self?.updateView(with: product)
         }.store(in: &cancellables)
     }

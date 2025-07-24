@@ -20,3 +20,10 @@ struct ProductDescription: Codable {
         case snapshot
     }
 }
+
+struct Snapshot: Codable {
+    let url: String
+    let width: Int
+    let height: Int
+    let status: String
+}

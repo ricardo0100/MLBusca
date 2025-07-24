@@ -15,7 +15,8 @@ protocol ProductDetailsViewModelProtocol: AnyObject {
     var coordinator: ProductDetailsCoordinatorProtocol? { get set }
     var view: ProductDetailsViewProtocol? { get set }
     
-    var product: AnyPublisher<ProductSearchItem, Never> { get }
+    var productItem: AnyPublisher<ProductSearchItem, Never> { get }
+    var productDetails: AnyPublisher<ProductDetails?, Never> { get }
     var productCategory: AnyPublisher<ProductCategory?, Never> { get }
     var productDescription: AnyPublisher<ProductDescription?, Never> { get }
     
