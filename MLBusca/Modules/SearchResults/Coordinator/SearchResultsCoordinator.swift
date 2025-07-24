@@ -25,6 +25,7 @@ final class SearchResultsCoordinator: SearchResultsCoordinatorProtocol {
     }
     
     func showProductDetails(for product: Product) {
-        
+        let productDetailsCoordinator = ProductDetailsCoordinator(navigationController: navigationController)
+        productDetailsCoordinator.showDetails(for: product)
     }
 }

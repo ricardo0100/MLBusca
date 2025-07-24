@@ -4,13 +4,20 @@
 //
 //  Created by Ricardo Gehrke Filho on 23/07/25.
 //
+import UIKit
 
 class ProductDetailsCoordinator: ProductDetailsCoordinatorProtocol {
-    required init(with product: Product) {
-        
+    let navigationController: UINavigationController
+    
+    required init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
     }
     
-    func show() {
-        
+    func showDetails(for product: Product) {
+        let viewModel = ProductDetailsViewModel(product: product)
+        viewModel.coordinator = self
+        let viewController = ProductDetailsViewController()
+        viewController.viewModel = viewModel
+        navigationController.pushViewController(viewController, animated: true)
     }
 }

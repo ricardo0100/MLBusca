@@ -7,6 +7,7 @@
 
 import UIKit
 
-class ProductDetailsViewController: UIViewController {
+class ProductDetailsViewController: UIViewController, ProductDetailsViewProtocol {
+    var viewModel: ProductDetailsViewModelProtocol?
     
 }

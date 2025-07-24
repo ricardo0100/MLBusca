@@ -8,8 +8,7 @@
 import Combine
 
 protocol ProductDetailsCoordinatorProtocol: AnyObject {
-    init(with product: Product)
-    func show()
+    func showDetails(for product: Product)
 }
 
 protocol ProductDetailsViewModelProtocol: AnyObject {
