@@ -15,6 +15,10 @@ class MockAPIService: APIServiceProtocol {
         files = listJSONFiles()
     }
     
+    func loadSearchSuggestions(query: String) async throws -> [String] {
+        ["Plim"]
+    }
+    
     func searchProduct(query: String) async throws -> SearchResponse {
         let query = query.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         guard let url = files.filter({ $0.path().contains("search-MLA") && $0.path().contains(query) }).first else {

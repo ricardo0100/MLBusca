@@ -16,10 +16,13 @@ protocol SearchViewModelProtocol: AnyObject {
     var coordinator: SearchCoordinatorProtocol? { get set }
     var view: SearchViewProtocol? { get set }
     
-    var searchText: CurrentValueSubject<String, Never> { get }
-    var isEnabled: CurrentValueSubject<Bool, Never> { get }
+    var searchText: AnyPublisher<String, Never> { get }
+    var isEnabled: AnyPublisher<Bool, Never> { get }
+    var searchSuggestions: AnyPublisher<[String], Never> { get }
     
     func didTapSearch()
+    func didUpdateSearchText(text: String)
+    func didSelectSuggestion(suggestion: String)
 }
 
 protocol SearchViewProtocol: AnyObject {

@@ -17,7 +17,7 @@ final class SearchCoordinator: SearchCoordinatorProtocol {
     }
 
     func show() {
-        let viewModel = SearchViewModel()
+        let viewModel = SearchViewModel(apiService: MockAPIService())
         let view = SearchViewController(viewModel: viewModel)
         viewModel.coordinator = self
         view.viewModel = viewModel
