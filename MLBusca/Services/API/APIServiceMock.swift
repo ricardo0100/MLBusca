@@ -37,7 +37,7 @@ class MockAPIService: APIServiceProtocol {
     
     func searchProduct(query: String) async throws -> SearchResponse {
         let query = query.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
-        guard let url = files.filter({ $0.path().contains("search-MLA") && $0.path().contains(query) }).first else {
+        guard let url = files.filter({ $0.absoluteString.contains("search-MLA") && $0.absoluteString.contains(query) }).first else {
             throw APIServiceError.noResultsFound
         }
         if let contents = readJSONFile(in: url, as: SearchResponse.self) {
@@ -124,7 +124,7 @@ class MockAPIService: APIServiceProtocol {
             let decoder = JSONDecoder()
             return try decoder.decode(T.self, from: data)
         } catch {
-            print("❌ Erro ao decodificar \(url.path()).json: \(error)")
+            print("❌ Erro ao decodificar \(url.absoluteString) \(error)")
             return nil
         }
     }
